@@ -9,10 +9,14 @@ import "../../assets/css/variables.css"
 import "../../assets/css/main.css"
 
 const ScholarHubHeader = () => {
+
+  const role = sessionStorage.getItem("userRole");
+  
+
   return (
     <>
   
-    <header style={{backgroundColor:"#94e4e1"}} id="header" class="header d-flex align-items-center fixed-top">
+    <header style={{backgroundColor:"rgb(120 167 237)"}} id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
       <a href="index.html" class="logo d-flex align-items-center">
@@ -27,9 +31,13 @@ const ScholarHubHeader = () => {
           <li><Link to="/blog">Blogs</Link></li>
           <li><Link to="/questions">Queries</Link></li>
           <li><Link to="/profile">My Account</Link></li>
-          <li><Link to="/admin">Admin Area</Link></li>
+          {
           
-          <li><a href="about.html">Library</a></li>
+            (role && role!="user" )? <li><Link to="/admin">Admin Area</Link></li> : ""
+          }
+          
+          
+          <li><a href="library">Library</a></li>
         </ul>
       </nav>
 

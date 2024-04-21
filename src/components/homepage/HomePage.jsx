@@ -2,7 +2,7 @@ import React from 'react';
 import { ScholarHubHeader } from '../ScholarHubHeader';
 // import { HomePageBody } from '.';
 import HomePageBody from './HomePageBody';
-import { Divider, Layout, Dropdown, Empty } from "antd";
+import { Layout } from "antd";
 import { Row, Col } from "antd";
 
 

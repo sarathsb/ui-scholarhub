@@ -14,53 +14,52 @@ import { dummyBolgData } from '../../utils/dummy-blog-data';
 
 
 const HomePageBlog = () => {
-  const [ postData, setPostData] = useState();
+  const [postData, setPostData] = useState();
   // const [fisrtRow, setFirstRow] = useState();
 
 
-  const fetchData=async() => {
+  const fetchData = async () => {
 
-    
-    
-      
+
+
+
     const response = await axios.get('http://localhost:8080/blogs')
-    console.log("response"+ response.data )
+    console.log("response" + response.data)
     setPostData(response.data);
-    console.log(postData+postData)
-    }
-    useEffect(()=>{
-      fetchData();
-    },[]);
-    
-    
-  
+  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
+
   // const firstRow = postData.slice(0,3);
   // const secondRow = postData.slice(3,6);
   // const thirdRow = postData.slice(6,9);
 
-  
+
 
   return (
-    
-    
-<Layout>
-<Row>
-        
-        </Row>
-        <Row>
-{postData?.map((blog) => {
-   return(
-        
+
+
+    <Layout>
+      <Row>
+
+      </Row>
+      <Row>
+        {postData?.map((blog) => {
+          return (
+
             <Col span={8} push={1}>
-                <BlogSingleCard blogData = {blog}/>
+              <BlogSingleCard blogData={blog} />
             </Col>
-        
-   )
 
-})
+          )
 
-}
-</Row>
+        })
+
+        }
+      </Row>
     </Layout>
   );
 };

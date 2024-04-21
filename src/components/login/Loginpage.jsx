@@ -16,6 +16,8 @@ const Loginpage = () => {
         const url = `http://localhost:8080/user/login?userName=${username}&passWord=${password}`;
         axios.get(url)
         .then(res => {
+			sessionStorage.setItem("userId",res.data.id)
+			sessionStorage.setItem("userRole",res.data.role)
             navigate("/home");
              console.log(res)
          })

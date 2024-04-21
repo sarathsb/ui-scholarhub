@@ -9,6 +9,13 @@ import Blogs from './components/blog/Blogs';
 import Signup from './components/Signup/Signup';
 import HomePage from './components/homepage/HomePage'
 // import SinglePost from './components/Posts/SinglePost';
+import DetailBlogPage from './components/detailBlog/DetailBlogPage';
+import Questions from './components/questions/Questions';
+import PersonalProfile from './components/profile/new/PersonalProfile';
+import Admin from './components/admin/Admin';
+import Update from './components/userUpdate/Update';
+import Library from './components/library/Library';
+
 
 const App = () => {
   return (
@@ -23,7 +30,13 @@ const App = () => {
           <Route path="/home" element={<HomePage />} />
           <Route path="/" element={<Loginpage />} /> 
           <Route path="/homepage" element={<HomePageBlog />}/>
-          {/* <Route path="/singlepost" element={<SinglePost />}/> */}
+          <Route path="/detail" element={<DetailBlogPage />}/>
+          <Route path="/questions" element={<Questions/>}/>
+          <Route path="/profile" element={<PersonalProfile/>}/>
+          <Route path="/admin" element={<Admin/>}/>
+          <Route path="/update" element={<Update/>}/>
+          <Route path="/library" element={<Library/>}/>
+           {/* <Route path="/singlepost" element={<SinglePost />}/> */}
 
       </Routes>
     </BrowserRouter>

@@ -5,8 +5,11 @@ import "medium-editor/dist/css/themes/beagle.css";
 import "./css/index.css";
 import { useState } from "react";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const CreateBlogForm = () => {
+  const navigate = useNavigate();
 
   const [title,setTitle]=useState("");
   const [author,setAuthor]=useState("");
@@ -16,6 +19,7 @@ const CreateBlogForm = () => {
   const [image,setImage]=useState();
 
   const handleSubmitStories =  () => {
+    
     // image
     console.log(image)
     
@@ -35,6 +39,7 @@ const CreateBlogForm = () => {
       // setLoginfailed(true);
       console.log(error)
    });
+   navigate("/post")
   }
 
 
