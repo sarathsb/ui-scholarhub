@@ -43,7 +43,7 @@ const navigate = useNavigate();
                   style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem',height:"500px" , marginTop:"0px"}}>
                     { <div style={{justifyItems:"center",marginLeft:"11%",backfaceVisibility:"hidden",marginTop:"35%"}}>
                       {(profile?.gender=="Male")?(<MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
-                    alt="Avatar" className="my-5" style={{ width: '80px',marginLeft:"20%",marginTop:"50%" }} fluid />):(<MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="Avatar" className="my-5" style={{ width: '80px' }} fluid />)}
+                    alt="Avatar" className="my-5" style={{ width: '80px',marginLeft:"24%",marginTop:"50%" }} fluid />):(<MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="Avatar" className="my-5" style={{  width: '80px',marginLeft:"24%",marginTop:"50%" }} fluid />)}
                      </div>
                     }
                 

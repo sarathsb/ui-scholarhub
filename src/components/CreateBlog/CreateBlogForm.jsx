@@ -12,7 +12,7 @@ const CreateBlogForm = () => {
   const navigate = useNavigate();
 
   const [title,setTitle]=useState("");
-  const [author,setAuthor]=useState("");
+  const [author,setAuthor]=useState(sessionStorage.getItem("userId"));
   const [date,setDate]=useState("");
   const [content,setContent]=useState("");
   const [category,setCategory]=useState("");
@@ -116,13 +116,6 @@ const CreateBlogForm = () => {
           },
         }}
       />
-
-        
-        
-        
-
-
-
 
       <div
         style={{

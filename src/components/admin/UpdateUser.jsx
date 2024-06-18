@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import styles from "./signup.css"
+// import styles from "./signup.css"
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate , useParams } from "react-router-dom";
 
-const Signup =() =>{
+
+const UpdateUser =() =>{
   const navigate = useNavigate();
+  const { userId } = useParams();
 
 
   const [firstNameinput,setfirstName]=useState("");
@@ -15,19 +18,19 @@ const Signup =() =>{
   const [Usernameinput,setUserName]=useState("");
   const [Passwordinput,setPassword]=useState("");
   const [gender,setGender]=useState("");
+  const [role,setRole] = useState("");
   const [errorMessage,setErrorMessage]=useState(false);
   // const [,setGender]=useState(undefined)
 
-const handleInputChange = (gender) =>  {
-setGender(gender);
-}
+
     const signUpAction = () =>{
+      
       
 
     console.log("Log before axios call")
     
-  
-    axios.post ('http://localhost:8080/user/register',
+    
+    axios.put ('http://localhost:8080/user/' + userId,
     {
       firstName:firstNameinput,
       lastName:lastNameinput,
@@ -35,17 +38,43 @@ setGender(gender);
       phnNo:PhoneNumberinput,
       userName:Usernameinput,
       passWord:Passwordinput,
-      gender: gender
+      role :role,
+      gender: gender,
+      
     })
     .then((response) => {
       console.log(response);
-      navigate("/")
+      navigate("/admin")
     }).catch((error)=>{
       console.log("Error caught", error)
       setErrorMessage(true)
     })
+
+
+    console.log("Log after axios call")
   }
     
+  const [profile, setProfile] = useState();
+
+        // const userIdData = ;
+        const Fetchdata = async () => {
+          const response = await axios.get('http://localhost:8080/user/' +userId)
+          console.log("response" + response.data)
+          setfirstName(response.data.firstName);
+          setlastName(response.data.lastName);
+          setEmail(response.data.email);
+          setPhoneNumber(response.data.phnNo);
+          setUserName(response.data.userName);
+          setPassword(response.data.passWord);
+          setGender(response.data.gender);
+          setRole(response.data.role);
+          setProfile(response.data);
+          console.log(profile + profile)
+        }
+        useEffect(() => {
+            Fetchdata()
+        },[]);
+
 
 
     return (
@@ -59,39 +88,43 @@ setGender(gender);
                                 <label style={{backgroundColor:"white",color:"red",margin:"50px"}}>Username Already Taken</label>
                             </div>
                             }
-    <div className="signUpTitle">Registration</div>
+    <div className="signUpTitle">Update</div>
     <div className="signUpContent">
       <form action="#" className="signUpForm">
         <div className="user-details">
           <div className="input-box">
             <span className="details">First Name</span>
-            <input type="text" placeholder="Enter your name" required value={firstNameinput} onChange={(event) => setfirstName(event.target.value)}/>
+            <input type="text" placeholder={profile?.firstName} required value={firstNameinput} onChange={(event) => setfirstName(event.target.value)}/>
           </div>
           <div className="input-box" >
             <span className="details">Last Name</span>
-            <input type="text" placeholder="Enter your name" required value={lastNameinput} onChange={(event) => setlastName(event.target.value)}/>
+            <input type="text" placeholder={profile?.lastName} required value={lastNameinput} onChange={(event) => setlastName(event.target.value)}/>
           </div>
           <div className="input-box">
             <span className="details">Email</span>
-            <input type="text" placeholder="Enter your email" required value={Emailinput} onChange={(event) => setEmail(event.target.value)}/>
+            <input type="text" placeholder={profile?.email} required value={Emailinput} onChange={(event) => setEmail(event.target.value)}/>
           </div>
           <div className="input-box">
             <span className="details">phone Number</span>
-            <input type="text" placeholder="Enter your number" required value={PhoneNumberinput} onChange={(event) => setPhoneNumber(event.target.value)}/>
+            <input type="text" placeholder={profile?.phnNo} required value={PhoneNumberinput} onChange={(event) => setPhoneNumber(event.target.value)}/>
           </div>
           <div className="input-box">
             <span className="details">Username</span>
-            <input type="text" placeholder="Enter your username" required value={Usernameinput} onChange={(event) => setUserName(event.target.value)}/>
+            <input type="text" placeholder={profile?.userName} required value={Usernameinput} onChange={(event) => setUserName(event.target.value)}/>
           </div>
           <div className="input-box">
             <span className="details">Password</span>
-            <input type="text" placeholder="Enter your password" required value={Passwordinput} onChange={(event) => setPassword(event.target.value)}/>
+            <input type="text" placeholder={profile?.passWord} required value={Passwordinput} onChange={(event) => setPassword(event.target.value)}/>
+          </div>
+          <div className="input-box">
+            <span className="details">Role</span>
+            <input type="text" placeholder={profile?.role} required value={role} onChange={(event) => setRole(event.target.value)}/>
           </div>
         </div>
         <div className="gender-details">
-          <input type="radio" value="Male" name="gender" id="dot-1" onChange={(event) =>handleInputChange("Male")}/>
-          <input type="radio" value="Female" name="gender" id="dot-2" onChange={(event) =>handleInputChange("Female")}/>
-          <input type="radio" value="NA" name="gender" id="dot-3" onChange={(event) =>handleInputChange("NA")}/>
+          <input type="radio" name="gender" id="dot-1" checked={gender=="Male"} onChange={(event) =>setGender("Male")}/>
+          <input type="radio" name="gender" id="dot-2" checked={gender=="Female"} onChange={(event) =>setGender("Female")}/>
+          <input type="radio" name="gender" id="dot-3" checked={gender=="NA"} onChange={(event) =>setGender("NA")}/>
           <span className="gender-title">Gender</span>
           <div className="category">
             <label className="signUpLabel" for="dot-1">
@@ -109,7 +142,7 @@ setGender(gender);
           </div>
         </div>
         <div className="button">
-          <input type="button" value="Register" onClick={signUpAction} />
+          <input type="submit" value="Update" onClick={signUpAction} />
         </div>
     </form>
     </div>
@@ -120,4 +153,4 @@ setGender(gender);
 };
 
 
-export default Signup;
+export default UpdateUser;

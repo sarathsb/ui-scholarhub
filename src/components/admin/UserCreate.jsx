@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import styles from "./signup.css"
+// import styled from "styled-components";
+// import styles from "./signup.css"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Signup =() =>{
+const UserCreate =() =>{
   const navigate = useNavigate();
 
 
@@ -15,6 +15,7 @@ const Signup =() =>{
   const [Usernameinput,setUserName]=useState("");
   const [Passwordinput,setPassword]=useState("");
   const [gender,setGender]=useState("");
+  const [role,setRole]=useState("");
   const [errorMessage,setErrorMessage]=useState(false);
   // const [,setGender]=useState(undefined)
 
@@ -35,11 +36,12 @@ setGender(gender);
       phnNo:PhoneNumberinput,
       userName:Usernameinput,
       passWord:Passwordinput,
-      gender: gender
+      gender: gender,
+      role:role
     })
     .then((response) => {
       console.log(response);
-      navigate("/")
+      navigate("/admin")
     }).catch((error)=>{
       console.log("Error caught", error)
       setErrorMessage(true)
@@ -88,6 +90,10 @@ setGender(gender);
             <input type="text" placeholder="Enter your password" required value={Passwordinput} onChange={(event) => setPassword(event.target.value)}/>
           </div>
         </div>
+        <div className="input-box">
+            <span className="details">Role</span>
+            <input type="text" placeholder="role" required value={role} onChange={(event) => setRole(event.target.value)}/>
+          </div>
         <div className="gender-details">
           <input type="radio" value="Male" name="gender" id="dot-1" onChange={(event) =>handleInputChange("Male")}/>
           <input type="radio" value="Female" name="gender" id="dot-2" onChange={(event) =>handleInputChange("Female")}/>
@@ -120,4 +126,4 @@ setGender(gender);
 };
 
 
-export default Signup;
+export default UserCreate;

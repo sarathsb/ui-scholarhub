@@ -15,7 +15,12 @@ import PersonalProfile from './components/profile/new/PersonalProfile';
 import Admin from './components/admin/Admin';
 import Update from './components/userUpdate/Update';
 import Library from './components/library/Library';
-
+import Comment from './components/Posts/Actions/Comment';
+import  CreateQuestion from './components/questions/CreateQuestion';
+import UpdateUser from './components/admin/UpdateUser';
+import DetailQuestion from './components/questions/DetailQuestion';
+import Answers from './components/questions/Answers';
+import UserCreate from './components/admin/UserCreate';
 
 const App = () => {
   return (
@@ -27,15 +32,21 @@ const App = () => {
           <Route path="/create" element={<CreateBlogPage/>} />
           <Route path="/signup" element={<Signup/>} /> 
           <Route path="/post" element={<Posts />} />
+          <Route path="/comment" element={<Comment/>} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/" element={<Loginpage />} /> 
           <Route path="/homepage" element={<HomePageBlog />}/>
-          <Route path="/detail" element={<DetailBlogPage />}/>
+          <Route path="/detail/:id" element={<DetailBlogPage />}/>
+          <Route path="/createquestion" element={<CreateQuestion/>} />
           <Route path="/questions" element={<Questions/>}/>
           <Route path="/profile" element={<PersonalProfile/>}/>
           <Route path="/admin" element={<Admin/>}/>
           <Route path="/update" element={<Update/>}/>
           <Route path="/library" element={<Library/>}/>
+          <Route path="/detailquestion/:id" element={<DetailQuestion/>}/>
+          <Route path="/answer" element={<Answers/>}/>
+          <Route path="/usercreate" element={< UserCreate />}/>
+          <Route path="/adminupdate/:userId" element={<UpdateUser/>}/>
            {/* <Route path="/singlepost" element={<SinglePost />}/> */}
 
       </Routes>

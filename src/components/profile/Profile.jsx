@@ -24,7 +24,7 @@ const Profile =()=>{
         <div>
           <ScholarHubHeader/>
 
-        <div style={{marginTop:"110px" , textAlign:"center",fontSize:"30px",fontFamily:"fantasy",color:"black",listStyle:"inside",padding:"200px"}}>
+        <div style={{marginTop:"110px" ,marginLeft:"10px", textAlign:"center",fontSize:"30px",fontFamily:"fantasy",color:"black",listStyle:"inside",padding:"200px"}}>
         First Name : {profile?.firstName}<br></br>
             Last Name : {profile?.lastName}<br></br>
             Email-id : {profile?.email}<br></br>

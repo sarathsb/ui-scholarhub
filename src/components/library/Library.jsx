@@ -1,6 +1,8 @@
 import ScholarHubHeader from "../ScholarHubHeader/ScholarHubHeader";
 import {Row , Col , Divider, Layout} from "antd";
 import FileUpload from "./FileUpload";
+import FileUploadTest from "./FileUploadTest"
+import FileList from "./FileList";
 
 
 const Library = () => {
@@ -13,13 +15,13 @@ const Library = () => {
             <div style={{marginTop:"10%", height:"100%"}}>
                             <Row height="100%">
                 <Col span={15} style={{height:"100%"}}>
-                    hii
+                   <FileList/>
                 
                 </Col>
                 <Col span={1}>
-                <Divider type="vertical" style={{height:"100%"}}  />
+                <Divider type="vertical" style={{ borderWidth: 1, borderStyle: 'solid', color: 'black', borderColor: 'black' , height:"100%" }}  />
                  </Col>              
-                <Col span={6}><FileUpload/></Col>
+                <Col span={6}><FileUploadTest/></Col>
             </Row>
             </div>
    </Layout>

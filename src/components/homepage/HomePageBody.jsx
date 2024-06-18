@@ -27,14 +27,14 @@ const HomePageBody = () => {
         </Col>
     </Row >
         <Row style={{marginTop: "10px"}}>
-        <Col span={15}>
+        <Col span={17}>
         <HomePageBlog/>
         </Col>
-        <Col span={1}>
-        <Divider type="vertical" style={{height:"100%"}}/>
+        <Col span={1} style={{backgroundColor:"#DFF8F8"}}>
+        <Divider type="vertical" style={{ borderWidth: 1, borderStyle: "dashed", color: 'black', borderColor: 'black' , height:"100%" }}/>
         </Col>
        
-        <Col span={8}>
+        <Col span={6} style={{backgroundColor:"#DFF8F8"}}>
         <HomePageQuestions/>
         </Col>
     </Row>

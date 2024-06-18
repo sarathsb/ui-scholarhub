@@ -7,50 +7,53 @@ import axios from "axios";
 import { Card } from "antd";
 import moment from "moment";
 import { Input } from "antd";
-import { DeleteOutlined , SendOutlined} from '@ant-design/icons';
+import { DeleteFilled , SendOutlined} from '@ant-design/icons';
 import {Row , Col} from "antd";
+import { useNavigate } from "react-router-dom";
 
 
 const { TextArea } = Input;
 
 
-const Comment = ({id}) => {
 
-   
+const Answers = ({id}) => {
+
+const navigate = useNavigate();   
 
      
 
-const [comments,setComments] = useState();
-const [commentAdded,setCommentAdded] = useState(false);
-const [commentRemoved,setCommentRemoved] = useState(false);
-const [comment,setComment] = useState();
+const [answers,setAnswers] = useState();
+const [answerAdded,setAnswerAdded] = useState(false);
+const [answerRemoved,setAnswerRemoved] = useState(false);
+const [answer,setAnswer] = useState();
 const author = sessionStorage.getItem("authorName");
 const [date,setDate] = useState();
-const [blogId,setBlogId] = useState();
-const userRole = sessionStorage.getItem("userRole");
+const [questionId,setQuestionId] = useState();
 
 const fetchData = async() => {
 
-    const response = await axios.get(`http://localhost:8080/comment/${id}`)
-    setComments(response.data);
+    const response = await axios.get(`http://localhost:8080/answer/${id}`)
+    setAnswers(response.data);
     console.log("response",response)
 }
+const userId = sessionStorage.getItem("userId");
+const userRole = sessionStorage.getItem("userRole");
 
 useEffect(() => {
-  setCommentAdded(false);
-  setCommentRemoved(false);
+  setAnswerAdded(false);
+  setAnswerRemoved(false);
     console.log("response" + "Inside UseEffect")
     fetchData();
-  },[commentAdded,commentRemoved])
+  },[answerAdded, answerRemoved])
   const handleOnChange =  (e) => {
 
     console.log("loig",e.target.value)
-    setComment(e.target.value);
+    setAnswer(e.target.value);
     
     // e.target.value= "";
   }
 
-  const submitAction = async (e) => {
+  const submitAction =  (e) => {
     
     // const commentData = new FormData();
     // commentData.append('comment', comment);
@@ -59,40 +62,37 @@ useEffect(() => {
     // commentData.append('date', date);
     
 console.log("loig",e.target.value)
-  await  axios.post('http://localhost:8080/comment/comments', 
+    axios.post('http://localhost:8080/answer/answers', 
 {
-    blogId: id,
-    comment: comment,
+    questionId: id,
+    answer: answer,
     author: author
 })
-setComment("");
-
-setCommentAdded(true);
+setAnswerAdded(true);
+setAnswer("");
 // window.location.reload();
   }
-  const deleteAction = async (id) => {
-    await axios.delete(`http://localhost:8080/comment/${id}`).then(res=>{
+  
+  const deleteAction = (id) => {
+    axios.delete(`http://localhost:8080/answer/${id}`).then(res=>{
       console.log(res);
     }).catch((error)=>{
       console.log("Error caught", error)
     })
-    setCommentRemoved(true)
+    setAnswerRemoved(true)
     
   }
-
-  
 
 
   return(
     <div>
-        <Card title="Comments">
+        <Card style={{backgroundColor:"bisque"}} title="Answers">
    
-    {comments?.map((cmnt)=>{
+    {answers?.map((ans)=>{
         return(
            <section>
-            <Card type="inner"  title={cmnt.author} extra={<div>{moment(cmnt.date).format('MM/DD/YYYY')}</div>}>
-            { ( userRole == 'admin')?<div style={{cursor:"pointer"}} onClick={()=>deleteAction(cmnt.id)}><DeleteOutlined  style={{ marginLeft:"100%",fontSize:"25px"}}/> </div>:""}
-            {cmnt.comment}
+            <Card type="inner"  title={ans.author}   extra={<div>{moment(ans.date).format('MM/DD/YYYY')}</div>}>{ ( userRole == 'admin')?<div style={{cursor:"pointer"}} onClick={()=>deleteAction(ans.id)}><DeleteFilled style={{marginLeft:"700px" , fontSize:"25px"}}/> </div>:""}
+            {ans.answer}
           </Card>
           
           </section>
@@ -108,11 +108,11 @@ setCommentAdded(true);
     <section>
     <Row>
         <Col span={23}>
-    <div><TextArea value={comment} rows={4} onChange={e=>handleOnChange(e)}/></div>
+    <div><TextArea value={answer} rows={4} onChange={e=>handleOnChange(e)}/></div>
     </Col>
     <Col span={1}>
     <button style={{size:"50px"}} class="button" onClick={e=>submitAction(e)}>
-					<span  style={{fontSize:"30px",transform:"revert", marginLeft:"3px",marginTop:"25px"}} class="button__text"  >{<SendOutlined twoToneColor="#52c41a" style={{marginTop:"35px", color:"blue"}}  />}</span>
+					<span  style={{fontSize:"30px",transform:"revert", marginLeft:"3px",marginTop:"25px"}} class="button__text"  >{<SendOutlined twoToneColor="#52c41a" style={{marginTop:"35px", color:"black"}}  />}</span>
                     </button>
                     </Col>
           
@@ -122,4 +122,4 @@ setCommentAdded(true);
   );
 }
 
-export default Comment;
+export default Answers;

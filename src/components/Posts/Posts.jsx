@@ -17,9 +17,13 @@ const Posts = () => {
 
   }
 
+  // const change = (detail) => {
+  //   navigate(`/detail/${detail}`)
+  // }
+
   const setPost = async () => {
 
-    const response = await axios.get('http://localhost:8080/blogs')
+    const response = await axios.get('http://localhost:8080/blogs?type=all')
     console.log(response)
     setBlogData(response.data);
   }
@@ -28,7 +32,7 @@ const Posts = () => {
     setPost();
   }, []);
 
-  const { postData, postLoading } = {}
+  // const { postData, postLoading } = {}
   return (
     // <section className="flex flex-col gap-[2.5rem]">
     <div style={{ backgroundColor: "white" }}>{
@@ -39,8 +43,8 @@ const Posts = () => {
     }
       <Row style={{ backgroundColor: "white" }}>
         <div>
-          {/* <div style={{color:"black", fontFamily:"cursive",fontSize:"30px", marginTop:"100px", marginLeft:"0px"}}> */}
-          <button style={{ marginTop: "100px", marginLeft: "1300px", padding: "10px", fontFamily: "fantasy" }} onClick={createAction}>Write📝</button>
+          {/* <div style={{color:"black", fontFamily:"cursive",fontSize:"20px", marginTop:"-50px", marginLeft:"0px"}}> */}
+          <button style={{ marginTop: "100px", marginLeft: "1300px", padding: "10px", fontFamily: "fantasy" ,fontSize:"20px"}} onClick={createAction}>Write📝</button>
         </div>
       </Row>
 
@@ -51,13 +55,13 @@ const Posts = () => {
 
             {
               blogData &&
-              blogData?.map((post, i) => <PostsCard post={post} key={i} />)
+              blogData?.map((post, i) => <PostsCard post={post} key={i}  />)
 
             }
           </div>
         </Col>
         <Col span={6}>
-          <div style={{ backgroundColor: "lightgrey", marginTop: "-15px" }}>
+          <div style={{ backgroundColor: "rgb(213 231 247)", marginTop: "-15px" }}>
 
             <DetailBlogPageSider />
           </div>

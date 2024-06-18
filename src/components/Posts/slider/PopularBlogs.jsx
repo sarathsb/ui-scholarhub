@@ -1,18 +1,33 @@
-import React from 'react';
-import { dummyBolgData } from '../../../utils/dummy-blog-data';
+import React, { useEffect, useState } from 'react';
 import { Divider } from 'antd';
+// import { dummyBolgData } from '../../../utils/dummy-blog-data';
+import axios from 'axios';
+import SiderBlog from './SiderBlog';
+
+import "../../../assets/vendor/bootstrap/css/bootstrap.min.css";
+import "../../../assets/css/variables.css";
+import "../../../assets/css/main.css";
+
+
+
 
 const PopularBlogs = () => {
+    const [blogData, setBlogData] = useState();
+    const fetchData = async ()=> {
+        const response = await axios.get('http://localhost:8080/blogs?type=popular')
+        setBlogData(response.data);
+    }
+    useEffect(() =>{
+        fetchData();
+    },[])
+
+
   return (
     <div> 
-    {dummyBolgData.map((blog) => {
+    {blogData && blogData.map((blog, index) => {
         return(
             <>
-            <div style={{display:"flex"}} class="post-meta">
-        <span class="date">Lifestyle</span> <span class="mx-1">&bull;</span> <span>Jul 5th '22</span></div>
-                <h2 style={{display:"flex", textAlign:"left"}} className="mb-2" >{blog.title}</h2>
-                <span style={{display:"flex"}} className="author mb-3 ">{blog.author}</span>
-                <Divider/>
+            <SiderBlog blog={blog}/>
                 </>
             
         )

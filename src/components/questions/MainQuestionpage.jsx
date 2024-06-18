@@ -4,9 +4,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 import Question from "./Question";
+import MainQuestion from './MainQuestion';
 // import Questions from './Quest
 
-const Questionspage = () => {
+const MainQuestionspage = () => {
 
     const [questions, setQuestions] = useState();
     const fetchData = async () => {
@@ -26,15 +27,15 @@ const Questionspage = () => {
     },[])
 
     return (
-        <div style={{backgroundColor: "#DFF8F8"}}>
+        <div style={{backgroundColor: "beige"}}>
     
         {questions?.map((qstn) => {
             return(
-                <Question qstn={qstn}/>
+                <MainQuestion qstn={qstn}/>
             )
         })}
         </div>
     );
 };
 
-export default Questionspage;
+export default MainQuestionspage;

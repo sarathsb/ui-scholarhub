@@ -8,8 +8,8 @@ const items: TabsProps['items'] = [
     {
   
       key: '1',
-      label: 'Popular Blogs',
-      children: (<PopularBlogs/>),
+      label: 'Latest Blogs',
+      children: (<LatestBlogs/>),
     },
     {
       key: '2',
@@ -18,15 +18,15 @@ const items: TabsProps['items'] = [
     },
     {
       key: '3',
-      label: 'Latest Blogs',
-      children: (<LatestBlogs/>),
+      label: 'Popular Blogs',
+      children: (<PopularBlogs/>),
     },
   ];
 
 const DetailBlogPageSider = () => {
   return (
-    <div style={{margin:"15px"}}>
-        <Tabs defaultActiveKey="1" items={items} />
+    <div style={{marginLeft:"0px",marginTop:"15px", backgroundColor:"rgb(213 231 247)"}}>
+        <Tabs style={{marginLeft:"15px"}} defaultActiveKey="1" items={items} />
            </div>
   );
 };

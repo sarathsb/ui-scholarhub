@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { readTime } from "../../utils/helper";
 import { useEffect, } from "react";
-import moment from "moment/moment";
+import moment from "moment";
 // import SavedPost from "../singlepost/Actions/SavedPost";
 // import { Blog } from "../../../Context/Context";
 // import Actions from "../singlepost/Actions/Actions";
@@ -13,7 +13,7 @@ import { Divider } from "antd";
 const PostsCard = ({ post }) => {
 
     const [userData, setUserData] = useState();
-  const { title, author: author, content, date: created, id: postId, userId, username, image } = post;
+  const { title, author: author, content, category, date: created, id: postId, userId, username, image } = post;
   // const { currentUser } = Blog();
 
 
@@ -22,14 +22,22 @@ const PostsCard = ({ post }) => {
     
     if(author != null){
         console.log("AUTHOR"+author)
+        try{
     const response = await axios.get('http://localhost:8080/user/'+ `${author}`)
     console.log("response"+ response.data + "author" + author)
     setUserData(response.data);
-    }
-    }
+        }catch(error){
+          setUserData({
+            firstName: "Deleted",
+            lastName: "User"
+          })
+        }
+    }}
+  
     useEffect(()=>{
         fetchUserData();
       },[]);
+    
     
   
   console.log("USERDATA" + userData)
@@ -40,10 +48,11 @@ const imageSrc = 'data:image/jpeg;base64,' + image ;
   return (
     <section>
       <div style={{margin:"10px"}}
-        onClick={() => navigate(`/post/${postId}`)}
+        onClick={() => navigate(`/detail/${postId}`)}
         className="flex flex-col sm:flex-row gap-4 cursor-pointer">
         <div className="flex-[2.5]">
-          <p className="pb-2 font-semibold capitalize">{userData?.firstName}</p>
+        <div className="post-meta"><span className="date">{category}</span> <span className="mx-1">-</span> {moment(created).format('MM/DD/YYYY')}<span></span></div>
+          <p className="pb-2 font-semibold capitalize">{userData?.firstName + " " + userData?.lastName}</p>
           <div style={{color:"#743407"}} className="text-xl font-bold line-clamp-2 leading-6 capitalize" dangerouslySetInnerHTML={{ __html: title }}>
              
           </div>
@@ -74,7 +83,7 @@ const imageSrc = 'data:image/jpeg;base64,' + image ;
           )} */}
         </div>
       </div>
-      <Divider type="horizontal" style={{height:"100%", opacity:"100px",color:"black" ,class:"solid"}}/>
+      <Divider type="horizontal" style={{ borderWidth: 1, borderStyle: 'solid', color: 'black', borderColor: 'black' }}/>
     </section>
   );
 };

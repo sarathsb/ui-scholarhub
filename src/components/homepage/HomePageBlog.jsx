@@ -23,7 +23,7 @@ const HomePageBlog = () => {
 
 
 
-    const response = await axios.get('http://localhost:8080/blogs')
+    const response = await axios.get('http://localhost:8080/blogs?type=all')
     console.log("response" + response.data)
     setPostData(response.data);
   }

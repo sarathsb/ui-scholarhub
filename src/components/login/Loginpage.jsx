@@ -18,6 +18,7 @@ const Loginpage = () => {
         .then(res => {
 			sessionStorage.setItem("userId",res.data.id)
 			sessionStorage.setItem("userRole",res.data.role)
+			sessionStorage.setItem("authorName",res.data.firstName +" "+ res.data.lastName)
             navigate("/home");
              console.log(res)
          })
@@ -32,7 +33,7 @@ const Loginpage = () => {
     return (
 
 
-<div class="container">
+<div class="container" >
 	<div class="screen">
 		<div class="screen__content">
 		<h1 style={{color:"blue", fontFamily:"fantasy",fontWeight:"italics",marginTop:"74px", marginLeft: "74px"}}>ScholarHub</h1>
@@ -40,7 +41,7 @@ const Loginpage = () => {
 			
 				<div class="login__field">
 					<i class="login__icon fas fa-user"></i>
-					<input type="text" class="login__input" placeholder="User name / Email"  required value={username} onChange={(event) => setUsername(event.target.value)} />
+					<input type="text" class="login__input" placeholder="User name "  required value={username} onChange={(event) => setUsername(event.target.value)} />
 				</div>
 				<div class="login__field">
 					<i class="login__icon fas fa-lock"></i>
@@ -51,7 +52,7 @@ const Loginpage = () => {
 					{/* <input class="button__text" type="submit" value="Login" onClick={loginAction} /> */}
 					{/* <i class="button__icon fas fa-chevron-right"></i> */}
 				</button>
-				<div style={{color: "#ffffff", margin: "-13px",padding: "0px", marginLeft: "81px",marginTop: "50px"}}> Create an account?<Link to="/Signup">Signup</Link></div>
+				<div style={{color: "#ffffff", margin: "-13px",padding: "0px", marginLeft: "81px",marginTop: "50px"}}> Create an account?<Link to="/signup">Signup</Link></div>
 			</div>
 			{
                                 loginfailed && 

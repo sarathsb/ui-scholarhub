@@ -7,15 +7,19 @@
 	font-family:cursive;
 }
 
-body {
+/* body {
 	background: linear-gradient(90deg, #C7C5F4, #776BCC);		
-}
+} */
 
 .container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
+	background: linear-gradient(90deg, #C7C5F4, #776BCC) !important;
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
 }
 
 .screen {		
@@ -176,3 +180,7 @@ body {
 .social-login__icon:hover {
 	transform: scale(1.5);	
 }
+/* 
+#root {
+	background-color: #4C489D !important;
+} */

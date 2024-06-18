@@ -11,7 +11,7 @@ const HomePage = () => {
     // <Layout >
     <div>
   <ScholarHubHeader />
-  <Layout style={{fontFamily:"Stencil Std, fantasy", marginTop: "65px", minHeight: "calc(100vh - 58px)" }}>
+  <Layout style={{fontFamily:"Stencil Std, fantasy", marginTop: "65px", minHeight: "calc(100vh - 58px)"  }}>
    <HomePageBody/> 
    </Layout>
 </div>

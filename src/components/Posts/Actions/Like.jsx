@@ -1,50 +1,75 @@
-// import React, { useEffect, useState } from "react";
-// import { PiHandsClappingDuotone } from "react-icons/pi";
-// import { Blog } from "../../../../Context/Context";
-// import { deleteDoc, doc, setDoc } from "firebase/firestore";
-// import { db } from "../../../../firebase/firebase";
-// import { toast } from "react-toastify";
-// import useSingleFetch from "../../../hooks/useSingleFetch";
-// import { formatNum } from "../../../../utils/helper";
+import React, { useEffect, useState } from "react";
+import { LikeTwoTone, HeartTwoTone, HeartOutlined, HeartFilled } from '@ant-design/icons'
+import { Button } from 'antd'
+import axios from 'axios';
 
-// const Like = ({ postId }) => {
-//   const [isLiked, setIsLiked] = useState(false);
-//   const { currentUser, setAuthModel } = Blog();
 
-//   const { data } = useSingleFetch("posts", postId, "likes");
+const Like = ({ postId }) => {
 
-//   useEffect(() => {
-//     setIsLiked(
-//       data && data.findIndex((item) => item.id === currentUser?.uid) !== -1
-//     );
-//   }, [data]);
+    const userId = sessionStorage.getItem("userId");
+    
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeEntry, setLikeEntry] = useState();
+  const [likeCount, setLikeCount] = useState();
 
-//   const handleLike = async () => {
-//     try {
-//       if (currentUser) {
-//         const likeRef = doc(db, "posts", postId, "likes", currentUser?.uid);
-//         if (isLiked) {
-//           await deleteDoc(likeRef);
-//         } else {
-//           await setDoc(likeRef, {
-//             userId: currentUser?.uid,
-//           });
-//         }
-//       } else {
-//         setAuthModel(true);
-//       }
-//     } catch (error) {
-//       toast.error(error.message);
-//     }
-//   };
-//   return (
-//     <button onClick={handleLike} className="flex items-center gap-1 text-sm">
-//       <PiHandsClappingDuotone
-//         className={`text-xl ${isLiked ? "text-black" : "text-gray-500"}`}
-//       />
-//       <span>{formatNum(data?.length)}</span>
-//     </button>
-//   );
-// };
+  const handleLikeClick = async () =>{
+    if(isLiked){
+        if(likeEntry != null){
+            likeEntry.liked = false;
+            await axios.post("http://localhost:8080/likes",likeEntry);
+            setIsLiked(false);
+        }else{
 
-// export default Like;
+            await axios.post("http://localhost:8080/likes",{
+                blogId: postId,
+                userId: userId,
+                liked: false
+            });
+            setIsLiked(false); 
+        }
+        
+    }else{
+        if(likeEntry != null){
+        likeEntry.liked = true;
+        await axios.post("http://localhost:8080/likes",likeEntry);
+        setIsLiked(true);
+    }else{
+
+        await axios.post("http://localhost:8080/likes",{
+            blogId: postId,
+            userId: userId,
+            liked: true
+        });
+        setIsLiked(true); 
+    }
+    }
+  }
+
+    const fetchData = async () => {
+        axios.get(`http://localhost:8080/likes/${postId}/${userId}`).then(res => {
+            console.log("response in detail blog content", JSON.stringify(res.data))
+              setLikeEntry(res.data.likesEntryRetrieved);
+              setLikeCount(res.data.count);
+              console.log("likeEntry.liked", likeEntry?.liked)
+              console.log("LikeEntry", likeEntry)
+              console.log("likeCount", likeCount)
+              setIsLiked(likeEntry?.liked);
+            })
+    }
+    useEffect(()=>{
+fetchData();
+    },[isLiked, likeCount])
+  return(
+    
+        <button className="like-button" onClick={handleLikeClick} style={{marginTop:"20px"}}>
+            {
+                isLiked?<HeartFilled style={{ color: "red", fontSize:"20px" }} />:<HeartOutlined style={{ color: "red", fontSize:"20px"  }} />
+            } 
+        
+        <span className="likes-count" style={{fontSize:"20px"}}>{likeCount}</span>
+      </button>
+    
+  )
+};
+
+export default Like;
